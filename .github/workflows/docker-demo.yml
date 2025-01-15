@@ -40,4 +40,4 @@ jobs:
       - name: Deploy to container
         run: |
           docker pull ${{ secrets.DOCKER_USERNAME }}/my-app:${{ github.sha }}
-          docker run -d --name my-app -p 80:80 ${{ secrets.DOCKER_USERNAME }}/my-app:${{ github.sha }}
+          docker run -d --name my-app -p 80:8080 ${{ secrets.DOCKER_USERNAME }}/my-app:${{ github.sha }}

@@ -1,12 +1,17 @@
-# Use an official Python runtime as a parent image
-FROM python:3.9-slim
+FROM alpine:3.8
 
-# Set the working directory in the container
-WORKDIR /app
+RUN mkdir /var/flaskapp
 
-# Copy the current directory contents into the container at /app
-COPY . .
-EXPOSE 80
+WORKDIR /var/flaskapp
 
-# Define the command to run your application
-CMD ["python", "app.py"]
+COPY .  .
+
+RUN apk update
+
+RUN apk add python3
+
+RUN pip3 install -r requirement.txt
+
+EXPOSE 5000 
+
+CMD ["python3","app.py"]

@@ -32,7 +32,7 @@ jobs:
            host: ${{ secrets.EC2_INSTANCE_IP }} 
            username: ec2-user
            key: ${{ secrets.SSH_PRIVATE_KEY }}
-           port: 22 
+           port: 8080
            script: |
               docker image pull srushtivkhandade/my-app:tagname
               docker container stop flask || true

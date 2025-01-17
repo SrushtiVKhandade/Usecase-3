@@ -1,17 +1,17 @@
 name: Docker Image build
- 
+
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
- 
+
 jobs:
- 
+
   build:
     name: Build Docker image and push to repositories
     runs-on: ubuntu-latest
- 
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -29,12 +29,13 @@ jobs:
       - name: deploying
         uses: appleboy/ssh-action@v0.1.8
         with:
-           host: ${{ secrets.SSH_HOST }}
-           username: ${{ secrets.SSH_USER }}
-           password: ${{ secrets.SSH_PASSWORD }}
-           port: ${{ secrets.SSH_PORT }}
+           host: ${{ secrets.EC2_INSTANCE_IP }} 
+           username: ec2-user
+           key: ${{ secrets.SSH_PRIVATE_KEY }}
+           port: 22 
            script: |
               docker image pull srushtivkhandade/my-app:tagname
-              docker container stop flask
-              docker container rm flask
+              docker container stop flask || true
+              docker container rm flask || true
               docker container run -d --name flask -p 80:5000 srushtivkhandade/my-app:tagname
+

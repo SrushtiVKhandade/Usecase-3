@@ -25,7 +25,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: srushtivkhandade/my-app:tagname
+          tags: srushtivkhandade/my-app:17jan
       - name: deploying
         uses: appleboy/ssh-action@v0.1.8
         with:
@@ -34,8 +34,8 @@ jobs:
            key: ${{ secrets.SSH_PRIVATE_KEY }}
            port: 8080
            script: |
-              docker image pull srushtivkhandade/my-app:tagname
+              docker image pull srushtivkhandade/my-app:17jan
               docker container stop flask || true
               docker container rm flask || true
-              docker container run -d --name flask -p 80:5000 srushtivkhandade/my-app:tagname
+              docker container run -d --name flask -p 80:5000 srushtivkhandade/my-app:17jan
 
